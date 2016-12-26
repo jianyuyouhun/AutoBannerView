@@ -19,7 +19,7 @@
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.0',{
+	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.1',{
 				exclude group: 'com.anroid.support'
 			}
 		}
@@ -27,6 +27,16 @@
    暂时需要各位手动消除support包冲突，下个版本再解决这个问题
 
 使用方法
+	
+	<com.jianyuyouhun.library.AutoBannerView
+        android:id="@+id/autoBannerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:dotGravity="right"
+        app:waitMilliSecond="2000"
+        app:dotMargin="4dp"/>
+
+xml中
 
         autoBannerView = (AutoBannerView) findViewById(R.id.autoBannerView);
         autoBannerView.setWaitMilliSceond(3000);
@@ -40,6 +50,8 @@
         autoBannerAdapter = new MyAutoBannerAdapter(getApplicationContext());
         autoBannerAdapter.changeItems(list);
         autoBannerView.setAdapter(autoBannerAdapter);
+
+代码中
 
 当数据改变的时候调用autoBannerAdapter.changeItems()方法，然后还需要调用autoBannerView.setAdapter(autoBannerAdapter);
 
