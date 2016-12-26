@@ -6,7 +6,25 @@
 
 ### 使用方法 ###
 
-项目clone或者下载到本地，然后将library引用为库，我会尽量加入远程仓库的。
+项目clone或者下载到本地，然后将library引用为库。
+
+1. Add it in your root build.gradle at the end of repositories:
+	
+		allprojects {
+		
+			repositories {
+				...
+				maven { url 'https://jitpack.io' }
+			}
+		}
+
+2. Add the dependency
+
+		dependencies {
+	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.0'
+		}
+
+使用方法
 
         autoBannerView = (AutoBannerView) findViewById(R.id.autoBannerView);
         autoBannerView.setWaitMilliSceond(3000);
