@@ -19,8 +19,12 @@
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.0'
+	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.0',{
+				exclude group: 'com.anroid.support'
+			}
 		}
+
+   暂时需要各位手动消除support包冲突，下个版本再解决这个问题
 
 使用方法
 
