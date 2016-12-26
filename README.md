@@ -6,8 +6,6 @@
 
 ### 使用方法 ###
 
-项目clone或者下载到本地，然后将library引用为库。
-
 1. Add it in your root build.gradle at the end of repositories:
 	
 		allprojects {
