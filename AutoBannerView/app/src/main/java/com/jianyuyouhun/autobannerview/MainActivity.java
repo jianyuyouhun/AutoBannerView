@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         autoBannerView = (AutoBannerView) findViewById(R.id.autoBannerView);
-        autoBannerView.setWaitMilliSceond(3000);
+        autoBannerView.setDotGravity(AutoBannerView.DotGravity.LEFT);
         autoBannerView.setOnBannerChangeListener(new AutoBannerView.OnBannerChangeListener() {
             @Override
             public void onCurrentItemChanged(int position) {

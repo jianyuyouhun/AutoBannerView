@@ -1,12 +1,15 @@
 package com.jianyuyouhun.library;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -46,11 +49,16 @@ public class AutoBannerView extends RelativeLayout {
 
     private OnBannerChangeListener onBannerChangeListener;
 
+    /** 圆点间距 */
+    private int dotMargin = 30;
+
     private int mDotResId = R.drawable.ic_health_poit_index_deep;
     private int mDotShadowResId = R.drawable.ic_health_poit_index_shallow;
 
     /** 轮播状态 */
     private boolean isRunning = false;
+
+    private DotGravity dotGravity = DotGravity.CENTER;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -84,7 +92,26 @@ public class AutoBannerView extends RelativeLayout {
     }
     public AutoBannerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttr(context, attrs, defStyleAttr);
         initView(context);
+    }
+
+    private void initAttr(Context context, AttributeSet attrs, int defStyleAttr) {
+        TypedArray array = context.getTheme().obtainStyledAttributes(attrs,
+                R.styleable.AutoBannerView, defStyleAttr, 0);
+        int n = array.getIndexCount();
+        for (int i = 0; i < n; i++) {
+            int attr = array.getIndex(i);
+            if (attr == R.styleable.AutoBannerView_dotGravity) {
+                dotGravity = DotGravity.valueOf(array.getInt(attr, 2));
+            } else if (attr == R.styleable.AutoBannerView_waitMilliSecond) {
+                mWaitMillisecond = array.getInt(attr, 3000);
+            } else if (attr == R.styleable.AutoBannerView_dotMargin) {
+                dotMargin = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+            }
+        }
+        array.recycle();
     }
 
     private void initView(Context context){
@@ -92,6 +119,7 @@ public class AutoBannerView extends RelativeLayout {
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_auto_banner, this, false);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
         dotContainer = (LinearLayout) view.findViewById(R.id.dotContainer);
+        setDotGravity(dotGravity);
         mImageViews = new ArrayList<>();
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
@@ -150,7 +178,8 @@ public class AutoBannerView extends RelativeLayout {
         for (int i = 0; i < count; i++) {
             ImageView dotImage = new ImageView(mContext);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.leftMargin = 30;
+            params.leftMargin = dotMargin;
+            params.rightMargin = dotMargin;
             dotImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             dotImage.setLayoutParams(params);
             if (i == 0) {
@@ -170,6 +199,30 @@ public class AutoBannerView extends RelativeLayout {
     }
 
     /**
+     * 设置圆点布局的位置
+     * @param gravity gravity
+     */
+    public void setDotGravity(DotGravity gravity) {
+        int dotGravity;
+        switch (gravity) {
+            case LEFT:
+                dotGravity = Gravity.LEFT;
+                break;
+            case CENTER:
+                dotGravity = Gravity.CENTER;
+                break;
+            case RIGHT:
+                dotGravity = Gravity.RIGHT;
+                break;
+            default:
+                dotGravity = Gravity.CENTER;
+                break;
+        }
+        dotContainer.setGravity(dotGravity);
+        requestLayout();
+    }
+
+    /**
      * 设置圆点样式
      * @param selectedId    选中状态
      * @param unSelectedId  未选中状态
@@ -177,6 +230,15 @@ public class AutoBannerView extends RelativeLayout {
     public void setDotStateId(int selectedId, int unSelectedId) {
         this.mDotResId = selectedId;
         this.mDotShadowResId = unSelectedId;
+    }
+
+    /**
+     * 设置圆点间距
+     * @param margin 间距
+     */
+    public void setDotMargin(int margin) {
+        this.dotMargin = margin;
+        requestLayout();
     }
 
     /**
@@ -288,4 +350,30 @@ public class AutoBannerView extends RelativeLayout {
         }
     }
 
+    public enum DotGravity {
+        LEFT(1), CENTER(2), RIGHT(3);
+        private int value = 2;
+
+        DotGravity(int value) {
+            this.value = value;
+        }
+
+        public static DotGravity valueOf(int value) {
+            switch (value) {
+                case 1:
+                    return LEFT;
+                case 2:
+                    return CENTER;
+                case 3:
+                    return RIGHT;
+                default:
+                    return CENTER;
+            }
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+    }
 }
