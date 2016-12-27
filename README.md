@@ -4,6 +4,12 @@
 
   [在这里O(∩_∩)O在这里](https://jianyuyouhun.com/index.php/archives/60/)
 
+### 一个Demo ###
+
+这个效果图是修改过的，[代码走这里](doc/OnBannerChange.md)
+
+![](doc/img/gif.gif)
+
 ### 使用方法 ###
 
 1. Add it in your root build.gradle at the end of repositories:
@@ -91,7 +97,6 @@ xml中
 
 还得感谢一下xutils框架呢,[链接在这里](https://github.com/wyouflf/xUtils3)
 
-![](http://occ9eufqe.bkt.clouddn.com/autobanner.gif)
 
 
 ### 版本变化 ###
