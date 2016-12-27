@@ -52,8 +52,8 @@ public class AutoBannerView extends RelativeLayout {
     /** 圆点间距 */
     private int dotMargin = 30;
 
-    private int mDotResId = R.drawable.ic_health_poit_index_deep;
-    private int mDotShadowResId = R.drawable.ic_health_poit_index_shallow;
+    private int mDotResId = R.drawable.ic_dot_deep;
+    private int mDotShadowResId = R.drawable.ic_dot_shallow;
 
     /** 轮播状态 */
     private boolean isRunning = false;
