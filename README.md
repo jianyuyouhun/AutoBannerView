@@ -28,7 +28,7 @@
 
 		dependencies {
 	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.1',{
-				exclude group: 'com.anroid.support'
+				exclude group: 'com.android.support'
 			}
 		}
 
