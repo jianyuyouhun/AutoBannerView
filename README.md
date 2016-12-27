@@ -8,6 +8,8 @@
 
 这个效果图是修改过的，[代码走这里](doc/OnBannerChange.md)
 
+看不到图或者不全的话,[点这里试试](http://occ9eufqe.bkt.clouddn.com/autobanner.gif)
+
 <img src="http://occ9eufqe.bkt.clouddn.com/autobanner.gif" />
 
 ### 使用方法 ###
