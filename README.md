@@ -92,3 +92,14 @@ xml中
 还得感谢一下xutils框架呢,[链接在这里](https://github.com/wyouflf/xUtils3)
 
 ![](http://occ9eufqe.bkt.clouddn.com/autobanner.gif)
+
+
+### 版本变化 ###
+
+1. v 0.1.0 
+   
+    第一次提交，实现基本功能
+
+2. v 0.1.1
+
+    增加xml中配置圆点间距，圆点布局gravity和轮播间隔
