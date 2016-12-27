@@ -8,7 +8,7 @@
 
 这个效果图是修改过的，[代码走这里](doc/OnBannerChange.md)
 
-![](doc/img/gif.gif)
+<img src="doc/img/gif.gif" />
 
 ### 使用方法 ###
 

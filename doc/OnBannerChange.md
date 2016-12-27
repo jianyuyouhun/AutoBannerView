@@ -159,4 +159,4 @@
 
 　　然后就可以得到这样的效果啦
 
-![](img/gif.gif)
+<img src="img/gif.gif" />
