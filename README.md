@@ -8,7 +8,7 @@
 
 这个效果图是修改过的，[代码走这里](doc/OnBannerChange.md)
 
-<img src="doc/img/gif.gif" />
+<img src="http://occ9eufqe.bkt.clouddn.com/autobanner.gif" />
 
 ### 使用方法 ###
 

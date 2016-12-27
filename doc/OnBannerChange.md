@@ -159,4 +159,4 @@
 
 　　然后就可以得到这样的效果啦
 
-<img src="img/gif.gif" />
+<img src="http://occ9eufqe.bkt.clouddn.com/autobanner.gif" />
