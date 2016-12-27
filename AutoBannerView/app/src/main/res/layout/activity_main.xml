@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.jianyuyouhun.autobannerview.MainActivity">
 
-
-    <com.jianyuyouhun.library.AutoBannerView
-        android:id="@+id/autoBannerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:dotGravity="right"
-        app:waitMilliSecond="2000"
-        app:dotMargin="4dp"/>
+        android:layout_height="200dp">
 
-</RelativeLayout>
+        <com.jianyuyouhun.library.AutoBannerView
+            android:id="@+id/autoBannerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:dotGravity="right"
+            app:waitMilliSecond="2000"
+            app:dotMargin="4dp"/>
+
+        <TextView
+            android:id="@+id/bannerTitle"
+            android:background="#38000000"
+            android:textColor="#ffffff"
+            android:padding="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

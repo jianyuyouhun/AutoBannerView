@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jianyuyouhun.library.AutoBannerView;
 
@@ -17,42 +18,69 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private AutoBannerView autoBannerView;
     private MyAutoBannerAdapter autoBannerAdapter;
-    private List<String> list;
+    private TextView title;
+    private List<BannerInfo> list;
+
+    private AutoBannerView.OnBannerChangeListener onBannerChangeListener = new AutoBannerView.OnBannerChangeListener() {
+        @Override
+        public void onCurrentItemChanged(int position) {
+            title.setText(list.get(position).getName());
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        autoBannerView = (AutoBannerView) findViewById(R.id.autoBannerView);
-        autoBannerView.setDotGravity(AutoBannerView.DotGravity.LEFT);
-        autoBannerView.setOnBannerChangeListener(new AutoBannerView.OnBannerChangeListener() {
-            @Override
-            public void onCurrentItemChanged(int position) {
+        initView();
+        initData();
+    }
 
-            }
-        });
-        list = new ArrayList<>();
+    private void initView() {
+        autoBannerView = (AutoBannerView) findViewById(R.id.autoBannerView);
+        title = (TextView) findViewById(R.id.bannerTitle);
+        autoBannerView.setDotGravity(AutoBannerView.DotGravity.RIGHT);
+        autoBannerView.setWaitMilliSceond(3000);
+        autoBannerView.setDotMargin(4);
+        autoBannerView.setOnBannerChangeListener(onBannerChangeListener);
+    }
+
+    private void initData() {
         autoBannerAdapter = new MyAutoBannerAdapter(getApplicationContext());
+        list = new ArrayList<>();
         test();
         autoBannerAdapter.changeItems(list);
         autoBannerView.setAdapter(autoBannerAdapter);
     }
 
     public void test() {
-        list.add("http://img3.imgtn.bdimg.com/it/u=1749061261,2462112140&fm=21&gp=0.jpg");
-        list.add("http://img5.imgtn.bdimg.com/it/u=1949438216,3782070973&fm=23&gp=0.jpg");
-        list.add("http://imgs.91danji.com/Upload/201419/2014191037351347278.jpg");
-        list.add("http://img.newyx.net/newspic/image/201410/14/90ea74d5b0.jpg");
+        BannerInfo info1 = new BannerInfo();
+        info1.setUrl("http://img3.imgtn.bdimg.com/it/u=1749061261,2462112140&fm=21&gp=0.jpg");
+        info1.setName("寒冰射手");
+        list.add(info1);
+        BannerInfo info2 = new BannerInfo();
+        info2.setUrl("http://img5.imgtn.bdimg.com/it/u=1949438216,3782070973&fm=23&gp=0.jpg");
+        info2.setName("齐天大圣");
+        list.add(info2);
+        BannerInfo info3 = new BannerInfo();
+        info3.setUrl("http://imgs.91danji.com/Upload/201419/2014191037351347278.jpg");
+        info3.setName("放逐之刃");
+        list.add(info3);
+        BannerInfo info4 = new BannerInfo();
+        info4.setUrl("http://img.newyx.net/newspic/image/201410/14/90ea74d5b0.jpg");
+        info4.setName("好多好多");
+        list.add(info4);
     }
 
     private class MyAutoBannerAdapter implements AutoBannerView.AutoBannerAdapter {
-        List<String> urls;
+        List<BannerInfo> urls;
         Context context;
         public MyAutoBannerAdapter(Context context) {
             this.context = context;
             this.urls = new ArrayList<>();
         }
 
-        public void changeItems(@NonNull List<String> urls) {
+        public void changeItems(@NonNull List<BannerInfo> urls) {
             this.urls.clear();
             this.urls.addAll(urls);
         }
@@ -70,8 +98,30 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 imageView = (ImageView) convertView;
             }
-            x.image().bind(imageView, urls.get(position));
+            x.image().bind(imageView, urls.get(position).getUrl());
             return imageView;
+        }
+    }
+
+    private class BannerInfo {
+
+        private String url;
+        private String name;
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }
