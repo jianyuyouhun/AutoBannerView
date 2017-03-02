@@ -1,5 +1,7 @@
 ## READ ME ##
 
+My server is migrating recent time. so you might can not visit it successful! sry.
+
 ### 原理和思路 ###
 
   [在这里O(∩_∩)O在这里](https://jianyuyouhun.com/index.php/archives/60/)
