@@ -1,4 +1,4 @@
-package com.jianyuyouhun.autobannerview;
+package com.jianyuyouhun.autobannerview.entity;
 
 /**
  * Created by Jianyuyouhun on 2016/12/27.
