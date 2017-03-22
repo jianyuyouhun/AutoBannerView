@@ -21,6 +21,7 @@
             app:dotMargin="4dp"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/bannerTitle"
             android:background="#38000000"
             android:textColor="#ffffff"

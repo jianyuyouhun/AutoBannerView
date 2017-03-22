@@ -1,6 +1,7 @@
 package com.jianyuyouhun.autobannerview.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.jianyuyouhun.autobannerview.App;
@@ -83,6 +84,7 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
     @Override
     public void showData(List<BannerInfo> infos) {
         list = infos;
+        title.setVisibility(View.VISIBLE);
         autoBannerAdapter.changeItems(list);
         autoBannerView.setAdapter(autoBannerAdapter);
     }

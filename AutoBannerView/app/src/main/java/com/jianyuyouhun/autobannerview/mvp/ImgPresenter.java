@@ -23,10 +23,9 @@ public class ImgPresenter extends BaseJPresenterImpl<ImgModel, ImgView> {
 
     @Override
     public void beginPresent() {
-        ImgModel model = mModel;
         final ImgView view = getJView();
         view.showDialog();
-        model.doTest(new OnResultListener<List<BannerInfo>>() {
+        mModel.doTest(new OnResultListener<List<BannerInfo>>() {
             @Override
             public void onResult(int i, final List<BannerInfo> bannerInfos) {
                 if (i == RESULT_SUCCESS) {
