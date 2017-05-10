@@ -29,12 +29,10 @@ My server is migrating recent time. so you might can not visit it successful! sr
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.1',{
+	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.2',{
 				exclude group: 'com.android.support'
 			}
 		}
-
-   暂时需要各位手动消除support包冲突，下个版本再解决这个问题
 
 使用方法
 	
@@ -112,3 +110,7 @@ xml中
 2. v 0.1.1
 
     增加xml中配置圆点间距，圆点布局gravity和轮播间隔
+    
+3. v 0.1.2
+
+　　修复bug，只有一张图时不自动轮播，增加了源码打包
