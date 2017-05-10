@@ -36,7 +36,7 @@ public class AutoBannerView extends RelativeLayout {
     private Context mContext;
 
     /** 存放视图 */
-    private ViewPager mViewPager;
+    private NestScrollViewPager mViewPager;
 
     /** 圆点容器 */
     private LinearLayout dotContainer;
@@ -117,7 +117,7 @@ public class AutoBannerView extends RelativeLayout {
     private void initView(Context context){
         mContext = context;
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_auto_banner, this, false);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        mViewPager = (NestScrollViewPager) view.findViewById(R.id.viewPager);
         dotContainer = (LinearLayout) view.findViewById(R.id.dotContainer);
         setDotGravity(dotGravity);
         mImageViews = new ArrayList<>();
@@ -191,11 +191,11 @@ public class AutoBannerView extends RelativeLayout {
             dotContainer.addView(dotImage);
         }
         int offset = (PAGER_MAX_VALUE / 2) % count;//计算偏移量
-        pagerAdapter.notifyDataSetChanged();
+        pagerAdapter = new BannerPagerAdapter();
+        mViewPager.setAdapter(pagerAdapter);
         mViewPager.setCurrentItem(PAGER_MAX_VALUE / 2 - offset, false);//从Integer.MAX_VALUE的中间开始加载，确保左滑右滑都能ok
-        if (count > 1) {
-            startImageTimerTask();
-        }
+        mViewPager.setScrollAble(count > 1);
+        startImageTimerTask();
     }
 
     /**
