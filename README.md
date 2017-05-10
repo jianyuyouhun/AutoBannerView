@@ -29,7 +29,7 @@ My server is migrating recent time. so you might can not visit it successful! sr
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:AutoBannerView:0.1.3',{
+	        compile 'com.github.jianyuyouhun:autobannerview:0.1.3',{
 				exclude group: 'com.android.support'
 			}
 		}
