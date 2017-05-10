@@ -21,7 +21,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
     compile project(':library')
     compile 'com.github.jianyuyouhun:jmvp:0.0.4'
     compile 'org.xutils:xutils:3.3.36'
