@@ -36,11 +36,10 @@ public class NestScrollViewPager extends ViewPager {
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (isScrollAble) {
-            super.onTouchEvent(ev);
+            return super.onTouchEvent(ev);
         } else {
             return true;
         }
-        return false;
     }
 
     @Override
