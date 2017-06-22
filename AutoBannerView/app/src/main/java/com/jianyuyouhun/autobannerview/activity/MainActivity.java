@@ -2,6 +2,7 @@ package com.jianyuyouhun.autobannerview.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.jianyuyouhun.autobannerview.App;
@@ -61,10 +62,11 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
         autoBannerView = (AutoBannerView) findViewById(R.id.autoBannerView);
         title = (TextView) findViewById(R.id.bannerTitle);
         autoBannerView.setDotGravity(AutoBannerView.DotGravity.RIGHT);
-        autoBannerView.setWaitMilliSceond(3000);
+        autoBannerView.setWaitMilliSecond(3000);
         autoBannerView.setDotMargin(4);
         autoBannerView.setOnBannerChangeListener(onBannerChangeListener);
         autoBannerAdapter = new MyAutoBannerAdapter(getApplicationContext());
+        autoBannerView.setAdapter(autoBannerAdapter);
     }
 
     private void initData() {
@@ -86,7 +88,6 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
         list = infos;
         title.setVisibility(View.VISIBLE);
         autoBannerAdapter.changeItems(list);
-        autoBannerView.setAdapter(autoBannerAdapter);
     }
 
     @Override

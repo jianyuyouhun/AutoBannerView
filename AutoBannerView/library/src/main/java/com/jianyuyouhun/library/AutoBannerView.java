@@ -2,8 +2,10 @@ package com.jianyuyouhun.library;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -47,6 +49,8 @@ public class AutoBannerView extends RelativeLayout {
     /** ViewPagerAdapter */
     private BannerPagerAdapter pagerAdapter;
 
+    private AutoBannerAdapter autoBannerAdapter;
+
     private OnBannerChangeListener onBannerChangeListener;
 
     /** 圆点间距 */
@@ -59,6 +63,8 @@ public class AutoBannerView extends RelativeLayout {
     private boolean isRunning = false;
 
     private DotGravity dotGravity = DotGravity.CENTER;
+
+    private BannerObserver bannerObserver = new BannerObserver();
 
     private Handler mHandler = new Handler() {
         @Override
@@ -167,10 +173,18 @@ public class AutoBannerView extends RelativeLayout {
      * @param adapter AutoBannerAdapter
      */
     public void setAdapter(@NonNull AutoBannerAdapter adapter) {
+        this.autoBannerAdapter = adapter;
+        this.autoBannerAdapter.setViewPagerObserver(bannerObserver);
+        this.autoBannerAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 数据变更
+     */
+    private void dataSetChanged() {
         stopImageTimerTask();
         this.dotContainer.removeAllViews();
         this.mImageViews.clear();
-        this.autoBannerAdapter = adapter;
         int count = autoBannerAdapter.getCount();
         if (count == 0) {
             return;
@@ -227,7 +241,7 @@ public class AutoBannerView extends RelativeLayout {
      * @param selectedId    选中状态
      * @param unSelectedId  未选中状态
      */
-    public void setDotStateId(int selectedId, int unSelectedId) {
+    public void setDotStateId(@DrawableRes int selectedId, @DrawableRes int unSelectedId) {
         this.mDotResId = selectedId;
         this.mDotShadowResId = unSelectedId;
     }
@@ -245,7 +259,7 @@ public class AutoBannerView extends RelativeLayout {
      * 设置等待时间间隔（毫秒）
      * @param milliSecond 等待时间
      */
-    public void setWaitMilliSceond(int milliSecond) {
+    public void setWaitMilliSecond(int milliSecond) {
         this.mWaitMillisecond = milliSecond;
     }
 
@@ -255,16 +269,6 @@ public class AutoBannerView extends RelativeLayout {
      */
     public void setOnBannerChangeListener(OnBannerChangeListener onBannerChangeListener) {
         this.onBannerChangeListener = onBannerChangeListener;
-    }
-
-    private AutoBannerAdapter autoBannerAdapter;
-
-    /**
-     * 轮播布局适配器接口
-     */
-    public interface AutoBannerAdapter {
-        int getCount();
-        View getView(View convertView, int position);
     }
 
     /**
@@ -375,5 +379,19 @@ public class AutoBannerView extends RelativeLayout {
             return value;
         }
 
+    }
+
+    public class BannerObserver extends DataSetObserver {
+        BannerObserver() {
+        }
+
+        @Override
+        public void onChanged() {
+            dataSetChanged();
+        }
+        @Override
+        public void onInvalidated() {
+            dataSetChanged();
+        }
     }
 }

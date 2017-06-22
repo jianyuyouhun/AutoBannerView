@@ -40,4 +40,9 @@ public class ImgPresenter extends BaseJPresenterImpl<ImgModel, ImgView> {
             }
         });
     }
+
+    public void refresh() {
+        beginPresent();
+    }
+
 }

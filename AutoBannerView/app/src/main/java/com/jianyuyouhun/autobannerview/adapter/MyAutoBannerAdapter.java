@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.jianyuyouhun.autobannerview.entity.BannerInfo;
+import com.jianyuyouhun.library.AutoBannerAdapter;
 import com.jianyuyouhun.library.AutoBannerView;
 
 import org.xutils.x;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by wangyu on 2017/3/17.
  */
 
-public class MyAutoBannerAdapter  implements AutoBannerView.AutoBannerAdapter {
+public class MyAutoBannerAdapter extends AutoBannerAdapter {
     List<BannerInfo> urls;
     Context context;
     public MyAutoBannerAdapter(Context context) {
@@ -28,11 +29,17 @@ public class MyAutoBannerAdapter  implements AutoBannerView.AutoBannerAdapter {
     public void changeItems(@NonNull List<BannerInfo> urls) {
         this.urls.clear();
         this.urls.addAll(urls);
+        notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
         return urls.size();
+    }
+
+    @Override
+    protected Object getItem(int position) {
+        return urls.get(position);
     }
 
     @Override
