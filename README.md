@@ -29,7 +29,7 @@ My server is migrating recent time. so you might can not visit it successful! sr
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:autobannerview:0.1.4',{
+	        compile 'com.github.jianyuyouhun:autobannerview:0.2.0',{
 				exclude group: 'com.android.support'
 			}
 		}
@@ -114,3 +114,7 @@ xml中
 3. v 0.1.4
 
 　　修复bug，只有一张图时不自动轮播，增加了源码打包
+
+4. v 0.2.0
+
+　　修复已知bug，AutoBannerAdapter改为一个class而不是interface，提供了notifyDataSetChanged方法变更数据
