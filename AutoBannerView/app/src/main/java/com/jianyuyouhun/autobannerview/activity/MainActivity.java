@@ -1,6 +1,7 @@
 package com.jianyuyouhun.autobannerview.activity;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,11 +14,12 @@ import com.jianyuyouhun.autobannerview.mvp.ImgView;
 import com.jianyuyouhun.autobannerview.adapter.MyAutoBannerAdapter;
 import com.jianyuyouhun.autobannerview.R;
 import com.jianyuyouhun.jmvplib.app.BaseActivity;
+import com.jianyuyouhun.jmvplib.app.BaseMVPActivity;
 import com.jianyuyouhun.library.AutoBannerView;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implements ImgView {
+public class MainActivity extends BaseMVPActivity<ImgPresenter, ImgModel> implements ImgView {
     private AutoBannerView autoBannerView;
     private MyAutoBannerAdapter autoBannerAdapter;
     private TextView title;
@@ -34,6 +36,7 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initView();
+        registerListener();
         initData();
     }
 
@@ -42,20 +45,15 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
         return R.layout.activity_main;
     }
 
-    @Override
-    public ImgPresenter getPresenter() {
-        return App.getInstance().getJPresenter(ImgPresenter.class);
-    }
-
+    @NonNull
     @Override
     protected ImgModel initModel() {
-        return new ImgModel();
+        return App.getInstance().getJModel(ImgModel.class);
     }
 
     @Override
-    public boolean bindModelAndView() {
+    protected void bindModelAndView(ImgPresenter mPresenter) {
         mPresenter.onBindModelView(mModel, this);
-        return true;
     }
 
     private void initView() {
@@ -67,6 +65,10 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
         autoBannerView.setOnBannerChangeListener(onBannerChangeListener);
         autoBannerAdapter = new MyAutoBannerAdapter(getApplicationContext());
         autoBannerView.setAdapter(autoBannerAdapter);
+    }
+
+    private void registerListener() {
+        mPresenter.registerListener();
     }
 
     private void initData() {
@@ -91,7 +93,12 @@ public class MainActivity extends BaseActivity<ImgPresenter, ImgModel> implement
     }
 
     @Override
-    public void showError(String s) {
+    public MyAutoBannerAdapter getAdapter() {
+        return autoBannerAdapter;
+    }
 
+    @Override
+    public void showError(String s) {
+        showToast(s);
     }
 }

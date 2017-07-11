@@ -1,9 +1,7 @@
 package com.jianyuyouhun.autobannerview.mvp;
 
-import android.os.Handler;
-
+import com.jianyuyouhun.autobannerview.adapter.MyAutoBannerAdapter;
 import com.jianyuyouhun.autobannerview.entity.BannerInfo;
-import com.jianyuyouhun.jmvplib.app.JApp;
 import com.jianyuyouhun.jmvplib.mvp.BaseJPresenterImpl;
 import com.jianyuyouhun.jmvplib.mvp.OnResultListener;
 
@@ -14,14 +12,18 @@ import java.util.List;
  */
 
 public class ImgPresenter extends BaseJPresenterImpl<ImgModel, ImgView> {
-    private Handler handler;
 
-    @Override
-    public void onPresenterCreate(JApp jApp) {
-        handler = jApp.getSuperHandler();
+    private MyAutoBannerAdapter.OnBannerClickListener onBannerClickListener = new MyAutoBannerAdapter.OnBannerClickListener() {
+        @Override
+        public void onClick(BannerInfo info) {
+            getJView().showToast(info.getName());
+        }
+    };
+
+    public void registerListener() {
+        getJView().getAdapter().setOnBannerClickListener(onBannerClickListener);
     }
 
-    @Override
     public void beginPresent() {
         final ImgView view = getJView();
         view.showDialog();
@@ -29,13 +31,10 @@ public class ImgPresenter extends BaseJPresenterImpl<ImgModel, ImgView> {
             @Override
             public void onResult(int i, final List<BannerInfo> bannerInfos) {
                 if (i == RESULT_SUCCESS) {
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.hideDialog();
-                            view.showData(bannerInfos);
-                        }
-                    }, 2000);
+                    view.hideDialog();
+                    view.showData(bannerInfos);
+                } else {
+                    view.showError("error");
                 }
             }
         });
@@ -44,5 +43,4 @@ public class ImgPresenter extends BaseJPresenterImpl<ImgModel, ImgView> {
     public void refresh() {
         beginPresent();
     }
-
 }
