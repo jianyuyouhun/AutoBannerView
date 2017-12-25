@@ -27,6 +27,6 @@ public class App extends JApp {
 
     @Override
     protected void initModels(List<BaseJModelImpl> models) {
-        models.add(new ImgModel());
+
     }
 }

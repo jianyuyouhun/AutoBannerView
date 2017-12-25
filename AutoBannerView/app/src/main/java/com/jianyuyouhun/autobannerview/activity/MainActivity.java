@@ -48,7 +48,7 @@ public class MainActivity extends BaseMVPActivity<ImgPresenter, ImgModel> implem
     @NonNull
     @Override
     protected ImgModel initModel() {
-        return App.getInstance().getJModel(ImgModel.class);
+        return new ImgModel();
     }
 
     @Override

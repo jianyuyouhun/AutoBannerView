@@ -1,5 +1,6 @@
 package com.jianyuyouhun.library;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -33,6 +34,7 @@ public class NestScrollViewPager extends ViewPager {
         return false;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (isScrollAble) {
@@ -40,6 +42,11 @@ public class NestScrollViewPager extends ViewPager {
         } else {
             return true;
         }
+    }
+
+    @Override
+    public boolean performClick() {
+        return super.performClick();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -66,7 +67,7 @@ public class AutoBannerView extends RelativeLayout {
 
     private BannerObserver bannerObserver = new BannerObserver();
 
-    private Handler mHandler = new Handler() {
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -133,6 +134,7 @@ public class AutoBannerView extends RelativeLayout {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_UP:
                         // 开始图片滚动
+                        performClick();
                         startImageTimerTask();
                         break;
                     default:
@@ -143,7 +145,7 @@ public class AutoBannerView extends RelativeLayout {
                 return false;
             }
         });
-        mViewPager.setOnPageChangeListener(new AutoBannerChangeListener());
+        mViewPager.addOnPageChangeListener(new AutoBannerChangeListener());
         pagerAdapter = new BannerPagerAdapter();
         mViewPager.setAdapter(pagerAdapter);
         this.addView(view);
@@ -220,13 +222,13 @@ public class AutoBannerView extends RelativeLayout {
         int dotGravity;
         switch (gravity) {
             case LEFT:
-                dotGravity = Gravity.LEFT;
+                dotGravity = Gravity.START;
                 break;
             case CENTER:
                 dotGravity = Gravity.CENTER;
                 break;
             case RIGHT:
-                dotGravity = Gravity.RIGHT;
+                dotGravity = Gravity.END;
                 break;
             default:
                 dotGravity = Gravity.CENTER;
