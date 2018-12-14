@@ -8,9 +8,7 @@
 
 这个效果图是修改过的，[代码走这里](doc/OnBannerChange.md)
 
-看不到图或者不全的话,[点这里试试](https://jianyuyouhun.com/imgs/autobannergif.gif)
-
-<img src="http://occ9eufqe.bkt.clouddn.com/autobannergif.gif" />
+<img src="https://jianyuyouhun.com/imgs/autobannergif.gif" />
 
 ### 使用方法 ###
 
