@@ -25,7 +25,7 @@
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:autobannerview:0.2.1',{
+	        compile 'com.github.jianyuyouhun:autobannerview:0.2.3',{
 				exclude group: 'com.android.support'
 			}
 		}
