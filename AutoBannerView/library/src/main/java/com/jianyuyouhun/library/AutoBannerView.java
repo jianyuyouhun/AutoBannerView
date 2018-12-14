@@ -70,6 +70,8 @@ public class AutoBannerView extends RelativeLayout {
     private int mDotResId = R.drawable.ic_dot_deep;
     private int mDotShadowResId = R.drawable.ic_dot_shallow;
 
+    private int dotVisible;
+
     /**
      * 轮播状态
      */
@@ -133,8 +135,7 @@ public class AutoBannerView extends RelativeLayout {
                 dotMargin = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
             } else if (attr == R.styleable.AutoBannerView_dotVisible) {
-                int dotVisible = array.getInt(R.styleable.AutoBannerView_dotVisible, View.VISIBLE);
-                dotContainer.setVisibility(dotVisible);
+                dotVisible = array.getInt(R.styleable.AutoBannerView_dotVisible, View.VISIBLE);
             }
         }
         array.recycle();
@@ -167,6 +168,7 @@ public class AutoBannerView extends RelativeLayout {
         mViewPager.addOnPageChangeListener(new AutoBannerChangeListener());
         pagerAdapter = new BannerPagerAdapter();
         mViewPager.setAdapter(pagerAdapter);
+        dotContainer.setVisibility(dotVisible);
         this.addView(view);
     }
 
@@ -198,6 +200,14 @@ public class AutoBannerView extends RelativeLayout {
         this.autoBannerAdapter = adapter;
         this.autoBannerAdapter.setViewPagerObserver(bannerObserver);
         this.autoBannerAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 显示/隐藏小圆点
+     */
+    public void setDotVisible(int visible) {
+        this.dotVisible = visible;
+        dotContainer.setVisibility(dotVisible);
     }
 
     /**
