@@ -8,5 +8,10 @@
         </attr>
         <attr name="waitMilliSecond" format="integer"/>
         <attr name="dotMargin" format="dimension" />
+        <attr name="dotVisible" format="enum">
+            <enum name="visible" value="0"/>
+            <enum name="invisible" value="4"/>
+            <enum name="gone" value="8"/>
+        </attr>
     </declare-styleable>
 </resources>

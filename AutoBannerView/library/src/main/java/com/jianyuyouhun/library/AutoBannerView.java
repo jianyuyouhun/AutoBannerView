@@ -132,6 +132,9 @@ public class AutoBannerView extends RelativeLayout {
             } else if (attr == R.styleable.AutoBannerView_dotMargin) {
                 dotMargin = array.getDimensionPixelSize(attr, (int) TypedValue.applyDimension(
                         TypedValue.COMPLEX_UNIT_DIP, 8, getResources().getDisplayMetrics()));
+            } else if (attr == R.styleable.AutoBannerView_dotVisible) {
+                int dotVisible = array.getInt(R.styleable.AutoBannerView_dotVisible, View.VISIBLE);
+                dotContainer.setVisibility(dotVisible);
             }
         }
         array.recycle();
