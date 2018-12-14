@@ -3,17 +3,14 @@ package com.jianyuyouhun.autobannerview.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.jianyuyouhun.autobannerview.App;
+import com.jianyuyouhun.autobannerview.R;
+import com.jianyuyouhun.autobannerview.adapter.MyAutoBannerAdapter;
 import com.jianyuyouhun.autobannerview.entity.BannerInfo;
 import com.jianyuyouhun.autobannerview.mvp.ImgModel;
 import com.jianyuyouhun.autobannerview.mvp.ImgPresenter;
 import com.jianyuyouhun.autobannerview.mvp.ImgView;
-import com.jianyuyouhun.autobannerview.adapter.MyAutoBannerAdapter;
-import com.jianyuyouhun.autobannerview.R;
-import com.jianyuyouhun.jmvplib.app.BaseActivity;
 import com.jianyuyouhun.jmvplib.app.BaseMVPActivity;
 import com.jianyuyouhun.library.AutoBannerView;
 
@@ -63,7 +60,7 @@ public class MainActivity extends BaseMVPActivity<ImgPresenter, ImgModel> implem
         autoBannerView.setWaitMilliSecond(3000);
         autoBannerView.setDotMargin(4);
         autoBannerView.setOnBannerChangeListener(onBannerChangeListener);
-        autoBannerAdapter = new MyAutoBannerAdapter(getApplicationContext());
+        autoBannerAdapter = new MyAutoBannerAdapter(getContext());
         autoBannerView.setAdapter(autoBannerAdapter);
     }
 

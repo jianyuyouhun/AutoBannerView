@@ -1,6 +1,5 @@
 package com.jianyuyouhun.autobannerview;
 
-import com.jianyuyouhun.autobannerview.mvp.ImgModel;
 import com.jianyuyouhun.jmvplib.app.JApp;
 import com.jianyuyouhun.jmvplib.mvp.BaseJModelImpl;
 import com.jianyuyouhun.jmvplib.utils.http.JHttpFactory;

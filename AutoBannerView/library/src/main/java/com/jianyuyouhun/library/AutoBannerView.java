@@ -38,29 +38,41 @@ public class AutoBannerView extends RelativeLayout {
 
     private Context mContext;
 
-    /** 存放视图 */
+    /**
+     * 存放视图
+     */
     private NestScrollViewPager mViewPager;
 
-    /** 圆点容器 */
+    /**
+     * 圆点容器
+     */
     private LinearLayout dotContainer;
 
-    /** 存放圆点 */
+    /**
+     * 存放圆点
+     */
     private List<ImageView> mImageViews;
 
-    /** ViewPagerAdapter */
+    /**
+     * ViewPagerAdapter
+     */
     private BannerPagerAdapter pagerAdapter;
 
     private AutoBannerAdapter autoBannerAdapter;
 
     private OnBannerChangeListener onBannerChangeListener;
 
-    /** 圆点间距 */
+    /**
+     * 圆点间距
+     */
     private int dotMargin = 30;
 
     private int mDotResId = R.drawable.ic_dot_deep;
     private int mDotShadowResId = R.drawable.ic_dot_shallow;
 
-    /** 轮播状态 */
+    /**
+     * 轮播状态
+     */
     private boolean isRunning = false;
 
     private DotGravity dotGravity = DotGravity.CENTER;
@@ -88,15 +100,19 @@ public class AutoBannerView extends RelativeLayout {
         }
     };
 
-    /** 轮播间隔 */
+    /**
+     * 轮播间隔
+     */
     private int mWaitMillisecond = 3000;
 
-    public AutoBannerView(Context context){
+    public AutoBannerView(Context context) {
         this(context, null, 0);
     }
-    public AutoBannerView(Context context, AttributeSet attrs){
+
+    public AutoBannerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
+
     public AutoBannerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttr(context, attrs, defStyleAttr);
@@ -121,11 +137,11 @@ public class AutoBannerView extends RelativeLayout {
         array.recycle();
     }
 
-    private void initView(Context context){
+    private void initView(Context context) {
         mContext = context;
         View view = LayoutInflater.from(mContext).inflate(R.layout.view_auto_banner, this, false);
-        mViewPager = (NestScrollViewPager) view.findViewById(R.id.viewPager);
-        dotContainer = (LinearLayout) view.findViewById(R.id.dotContainer);
+        mViewPager = view.findViewById(R.id.viewPager);
+        dotContainer = view.findViewById(R.id.dotContainer);
         setDotGravity(dotGravity);
         mImageViews = new ArrayList<>();
         mViewPager.setOnTouchListener(new OnTouchListener() {
@@ -172,6 +188,7 @@ public class AutoBannerView extends RelativeLayout {
 
     /**
      * 设置适配器
+     *
      * @param adapter AutoBannerAdapter
      */
     public void setAdapter(@NonNull AutoBannerAdapter adapter) {
@@ -216,6 +233,7 @@ public class AutoBannerView extends RelativeLayout {
 
     /**
      * 设置圆点布局的位置
+     *
      * @param gravity gravity
      */
     public void setDotGravity(DotGravity gravity) {
@@ -240,8 +258,9 @@ public class AutoBannerView extends RelativeLayout {
 
     /**
      * 设置圆点样式
-     * @param selectedId    选中状态
-     * @param unSelectedId  未选中状态
+     *
+     * @param selectedId   选中状态
+     * @param unSelectedId 未选中状态
      */
     public void setDotStateId(@DrawableRes int selectedId, @DrawableRes int unSelectedId) {
         this.mDotResId = selectedId;
@@ -250,6 +269,7 @@ public class AutoBannerView extends RelativeLayout {
 
     /**
      * 设置圆点间距
+     *
      * @param margin 间距
      */
     public void setDotMargin(int margin) {
@@ -259,6 +279,7 @@ public class AutoBannerView extends RelativeLayout {
 
     /**
      * 设置等待时间间隔（毫秒）
+     *
      * @param milliSecond 等待时间
      */
     public void setWaitMilliSecond(int milliSecond) {
@@ -267,6 +288,7 @@ public class AutoBannerView extends RelativeLayout {
 
     /**
      * 设置轮播图内容切换监听
+     *
      * @param onBannerChangeListener OnBannerChangeListener
      */
     public void setOnBannerChangeListener(OnBannerChangeListener onBannerChangeListener) {
@@ -277,7 +299,11 @@ public class AutoBannerView extends RelativeLayout {
      * banner改变时的回调
      */
     public interface OnBannerChangeListener {
+        void onPageScrolled(int position, float positionOffset, int positionOffsetPixels);
+
         void onCurrentItemChanged(int position);
+
+        void onPageScrollStateChanged(int state);
     }
 
     @Override
@@ -290,7 +316,12 @@ public class AutoBannerView extends RelativeLayout {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            if (mImageViews.size() == 0) {
+                return;
+            }
+            int pos = position % mImageViews.size();
+            if (onBannerChangeListener != null)
+                onBannerChangeListener.onPageScrolled(pos, positionOffset, positionOffsetPixels);
         }
 
         @Override
@@ -305,15 +336,16 @@ public class AutoBannerView extends RelativeLayout {
                     mImageViews.get(i).setBackgroundResource(mDotShadowResId);
                 }
             }
-            if (onBannerChangeListener != null) {
+            if (onBannerChangeListener != null)
                 onBannerChangeListener.onCurrentItemChanged(pos);
-            }
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
             if (state == ViewPager.SCROLL_STATE_IDLE)
                 startImageTimerTask();
+            if (onBannerChangeListener != null)
+                onBannerChangeListener.onPageScrollStateChanged(state);
         }
     }
 
@@ -327,17 +359,15 @@ public class AutoBannerView extends RelativeLayout {
         }
 
         @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
+        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
             View view = (View) object;
             container.removeView(view);
             cacheList.push(view);
         }
 
+        @NonNull
         @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            if (autoBannerAdapter == null || autoBannerAdapter.getCount() == 0) {
-                return null;
-            }
+        public Object instantiateItem(@NonNull ViewGroup container, int position) {
             int offset = position % autoBannerAdapter.getCount();
             View view;
             if (cacheList.size() == 0) {
@@ -351,14 +381,14 @@ public class AutoBannerView extends RelativeLayout {
         }
 
         @Override
-        public boolean isViewFromObject(View view, Object object) {
+        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
             return view == object;
         }
     }
 
     public enum DotGravity {
         LEFT(1), CENTER(2), RIGHT(3);
-        private int value = 2;
+        private int value;
 
         DotGravity(int value) {
             this.value = value;
@@ -391,6 +421,7 @@ public class AutoBannerView extends RelativeLayout {
         public void onChanged() {
             dataSetChanged();
         }
+
         @Override
         public void onInvalidated() {
             dataSetChanged();
