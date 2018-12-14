@@ -8,7 +8,7 @@
 
 这个效果图是修改过的，[代码走这里](doc/OnBannerChange.md)
 
-看不到图或者不全的话,[点这里试试](http://occ9eufqe.bkt.clouddn.com/autobannergif.gif)
+看不到图或者不全的话,[点这里试试](https://jianyuyouhun.com/imgs/autobannergif.gif)
 
 <img src="http://occ9eufqe.bkt.clouddn.com/autobannergif.gif" />
 
@@ -27,7 +27,7 @@
 2. Add the dependency
 
 		dependencies {
-	        compile 'com.github.jianyuyouhun:autobannerview:0.2.0',{
+	        compile 'com.github.jianyuyouhun:autobannerview:0.2.1',{
 				exclude group: 'com.android.support'
 			}
 		}
