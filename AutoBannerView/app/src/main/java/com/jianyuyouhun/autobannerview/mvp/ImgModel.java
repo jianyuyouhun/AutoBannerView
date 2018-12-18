@@ -31,7 +31,7 @@ public class ImgModel extends BaseJModelImpl {
         LightBroadcast.getInstance().postDelayed(new Runnable() {
             @Override
             public void run() {
-                listener.onResult(OnResultListener.RESULT_SUCCESS, list);
+                listener.onResult(OnResultListener.RESULT_SUCCESS, new ArrayList<BannerInfo>());
             }
         }, 2000);
     }

@@ -24,8 +24,18 @@ public class MainActivity extends BaseMVPActivity<ImgPresenter, ImgModel> implem
 
     private AutoBannerView.OnBannerChangeListener onBannerChangeListener = new AutoBannerView.OnBannerChangeListener() {
         @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
         public void onCurrentItemChanged(int position) {
             title.setText(list.get(position).getName());
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
         }
     };
 

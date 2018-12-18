@@ -219,6 +219,7 @@ public class AutoBannerView extends RelativeLayout {
         this.mImageViews.clear();
         int count = autoBannerAdapter.getCount();
         if (count == 0) {
+            mViewPager.setAdapter(null);
             return;
         }
         for (int i = 0; i < count; i++) {
